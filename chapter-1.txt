@@ -3,13 +3,21 @@ Chapter 1 - PHP Basics
 I. Syntax
 
     A. Source Files and PHP Tags
-        1. Standard Tags
+        1. Standard Tags:
+        
+            <?
+                ... code
+            ?>
         
         2. Echo Tags
         
-        3. Script Tags
+            <?= $variableToEcho; ?> // Allows you to print the result of an expression directly to the script's output
         
-        4. ASP Tags
+        3. Short Tags
+        
+        4. Script Tags
+        
+        5. ASP Tags
         
     B. Newline Characters
     
