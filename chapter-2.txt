@@ -1,0 +1,20 @@
+Chapter 2 : Functions
+------------------------------------------
+
+I. Basic Syntax
+
+II. Returning Values
+
+III. Variable Scope
+
+IV. Passing Arguments
+
+V. Type-hinting
+
+VI. Passing Arguments by Reference
+
+VII. Variable-Length Argument Lists
+
+VIII. Argument Unpacking
+
+IX. Summary
