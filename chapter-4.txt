@@ -1,0 +1,45 @@
+Chapter 4 : Arrays
+
+I. Array Basics
+
+    A. Short Array Syntax
+    
+    B. Printing Arrays
+    
+    C. Ennumerative vs. Associative
+    
+    D. Multi-dimensional Arrays
+    
+    E. Unraveling Arrays
+    
+II. Array Operations
+
+    A. Comparing Arrays
+    
+    B. Counting, Searching and Deleting Elements
+    
+    C. Flipping and Reversing
+    
+III. Array Iteration
+
+
+    A. The Array Pointer
+    
+    B. An Easier Way to Iterate
+    
+    C. Passive Iteration
+    
+    D. Sorting Arrays
+    
+    E. Other Sorting Options
+    
+    F. The Anti-Sort
+    
+IV. Arrays as Stacks, Queues and Sets
+
+    A. Set Functionality
+    
+
+V. Dereferencing Arrays
+
+VI. Summary
