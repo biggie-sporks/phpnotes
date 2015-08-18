@@ -1,0 +1,92 @@
+Chapter 1 - PHP Basics
+
+I. Syntax
+
+    A. Source Files and PHP Tags
+        1. Standard Tags
+        
+        2. Echo Tags
+        
+        3. Script Tags
+        
+        4. ASP Tags
+        
+    B. Newline Characters
+    
+    C. Anatomy of a PHP Script
+    
+        1. Comments
+    
+        2. White Space
+        
+        3. Code Blocks
+        
+        4. Language Constructs
+        
+    D. Data Types
+    
+    E. Numeric Values
+    
+    F. Strings
+    
+    G. Booleans
+    
+    H. Compound Data Types
+    
+    I. Other Data Types
+    
+    J. Converting Between Data Types
+    
+    K. Variables
+    
+        1. Type Casting
+    
+            a. Detecting Types
+        
+        2. Variable Variables
+    
+        3. Inspecting Variables
+        
+        4. Determining if a Variable is Empty
+    L. Constants
+    
+    M. Operators
+    
+        1. Arithmetic Operators
+        
+        2. The String Concatenation Operator
+        
+        3. Bitwise Operators
+        
+        4. Assignment Operators
+        
+        5. Referencing Variables
+        
+        6. Comparison Operators
+        
+        7. Logical Operators
+        
+        8. Other Operators
+        
+        9. Operator Precidence and Associativity
+        
+        
+    N. Control Structures
+    
+        1. Conditional Structures
+        
+        2. Iterative Constructs
+        
+        3. Breaking and Continuing
+        
+    O. Namespaces
+    
+        1. Sub-Namespaces
+        
+        2. Using Namespaces
+        
+    P. Aliasing
+    
+    Q. Importing Functions and Constants
+    
+    R. Summary
