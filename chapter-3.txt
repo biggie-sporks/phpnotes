@@ -50,8 +50,4 @@ VII. Perl Compatible Regular Expressions
     
     F. Matching and Extracting Strings
     
-<<<<<<< HEAD
     G. Using PCRE to Replace Strings
-=======
-    G. Using PCRE to Replace Strings
->>>>>>> parent of f246989... Revert "Chapter 2"
