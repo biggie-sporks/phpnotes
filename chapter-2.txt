@@ -18,7 +18,4 @@ VII. Variable-Length Argument Lists
 VIII. Argument Unpacking
 
 IX. Summary
-<<<<<<< HEAD
-=======
 
->>>>>>> parent of f246989... Revert "Chapter 2"
