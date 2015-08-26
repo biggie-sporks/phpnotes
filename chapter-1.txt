@@ -3,74 +3,327 @@ Chapter 1 - PHP Basics
 I. Syntax
 
     A. Source Files and PHP Tags
-        1. Standard Tags:
+        1. Standard Tags: guaranteed available; cannot be disabled in PHP's config file
         
             <?
                 ... code
             ?>
         
-        2. Echo Tags
+        2. Echo Tags:  allow printing the result of an expression directly to the script's output
         
-            <?= $variableToEcho; ?> // Allows you to print the result of an expression directly to the script's output
+            <?= $variableToEcho; ?> 
         
-        3. Short Tags
+        3. Short Tags: Depricated, Discouraged, Conflict with XML processing instructions (<?xml)
+            <?
+                ... code
+            ?>
+            
+        4. Script Tags: Depricated, Discouraged
+            <script language = "php">
+                ... code
+            </script
         
-        4. Script Tags
-        
-        5. ASP Tags
+        5. ASP Tags: Depricated, Discouraged
+            <%
+                ... code
+            %>
+            
         
     B. Newline Characters
-    
+        Every character outside fo PHP tags is copied as-is by the interpreter to the script's output, including newline characters.
+        
+        Newlines are normally ignored by browsers.
+        
+        Newlines are used as separators between the header portion of a webs server's HTTP response and the actual data
+        
+        The first newline directly after a closing tag (?> only) is stripped by the parser; this solves a problem introduced by the fact that a number of popular text editors auto-append a newline to the end of a file, interfering with include files, which should not output any text.
+        
+        Leave out the closing tag at the end of include files to prevent spurious output.
+
+
     C. Anatomy of a PHP Script
-    
-        1. Comments
-    
-        2. White Space
+ 
+        Except in very few cases, instructions must be terminated with a semicolon. Exceptions: the last instruction before a closing tag does not require a semicolon.
+        However, you should always terminate an instruction with a semicolon:
         
-        3. Code Blocks
+            some_instruction();
+            $variable = 'value';
         
+        1. Comments:
+            
+                // Single line comment
+                
+                # Single line comment
+                
+                /* Multi-line
+                comment
+                */
+    
+                /**
+                 * API Documentation Example
+                 * @param string $bar
+                 */
+                 function foo($bar){}
+                 
+            Single line comments (//, #) can be ended using a newline (\r, \n, \r\n) or by ending the current PHP block closing tag: ?>.
+            
+            Because the closing tag ?> will enda comment, code like '// Do not show this ?> or this' will output 'or this'
+            
+    
+        2. White Space: PHP is whitespace-insensitive except in a few key areas.
+            You cannot...
+                have any whitespace between <? and php
+                break apart keywords (e.g.:whi le, fo r, func tion)
+                break apart variable names and function names ($varia blename, function fo obar())
+                precede Heredoc and Nowdoc closing identifiers by anything, including whitespace
+            
+        3. Code Blocks: A code block is simply a series of statements enclode between two braces:
+        
+                {
+                    //some comments
+                    f(); //a function call
+                }
+            Code blocks can be nested.
+            For a code block to be useful, you would typically preced it with a statement type identifier: function, for, foreach, do, while, if, else, elseif, or switch.
+            
+
         4. Language Constructs
-        
+            Language Constructs are elements that are built into the language and follow special rules.
+            Examples:
+                echo ~> writes to script's output, is not a function, has no return value
+                    echo "A string to ouptut"; // outputs "A string to output"
+                print() ~> acts like a function, always returns 1.
+                
+                    print ("A string"); // outputs "A string", returns 1
+                die() ~> an alias of exit(), terminates a script and can output a string or return
+                a numeric status value to the process that called the script.
+                
+
     D. Data Types
+    
+        PHP data types are generally divided into 'scalar' and 'composite'
+        
+        Scalar: contains only one value ata time; PHP's 4 scalar types:
+            Boolean: a value that can only be true or false
+            int: a signed numeric integer value
+            float: a signed floating-point value
+            string: a collection of binary data
     
     E. Numeric Values
     
-    F. Strings
+        PHP recognizes 2 number types: integer, floating point
+        int represents signed integers(positive/negative numbers)
+        
+            int notations:
+            Decimal: (10; -11; 2483) standard decimal notation; no thousand separator
+            Octal: (0666, 0100) octal notation: id'd by its leading zero
+            Hexadecimal: (0x123; 0xFF; -0x100) base-16 notation: note 0x prefix
+            Binary: (0b011; 0B010101;; -0b100) base-2 notation: 0 followed by case-insensitive B, only 1s, 0s allowed
+            
+            Note: all non-decimal numbers are converted to decimal when ouput using echo or print
+
+        floating point numbers (floats, doubles) have fractional components, are signed
+
+            float notations:
+            Decimal: (0.12, 123.34, -.284) Traditional decimal notation
+            Exponential: (2E7, 1.2e2) Exponential notation: signficant digits (mantissa) follewd by a case-insensitive E and an exponent (1e2 equals 100)
+            
+        Note: precision and range of number types is platform dependent; PHP does not track overflows
+        
+        Note: float is not always capable of representing numbers in the way you want it to;
+            echo (int)((0.1 + 0.7) * 10); //outputs 7 (not 8) b/c php stores the result as 7.999999, and is converted to 7 when the value is converted to int.
+            
+        Whenever precision of calculation is a relavent factor to your application consider using the arbitrary precision functions of the BCMath extension.
+        
+    F. Strings: Strings are ordered collections of binary data (text, an image file, a spreadsheet, music, etc.)
     
-    G. Booleans
+    G. Booleans: Booleans can only contain 'true' or 'false'
+        
+        Rules for converting data to/from boolean:
+            -a number (int/float) converted to a boolean becomes false if its original value is zero; true if otherwise
+            -a string is converted to false only if it is empty or contains the _single_ character 0. Anything else is converted to true.
+            -when converted to a number or string, a boolean becomes 1 if true, 0 otherwise
+        
+    H. Compound Data Types: PHP supports Arrays and Objects
+
+        Arrays: containers of ordered data elements; can be used to store/retrieve any other data type
+        Objecs: containers of both data and code
     
-    H. Compound Data Types
-    
-    I. Other Data Types
-    
+    I. Other Data Types: NULL, resource
+        NULL: indicates a variable has no value; a variable is null if it has been assigned NULL or if it has not yet been assigned a value
+        
+        resource: used to indicate external non-PHP-native resources that have meaning re: a special operation (file handing, etc.)
+        
     J. Converting Between Data Types
-    
-    K. Variables
-    
-        1. Type Casting
-    
-            a. Detecting Types
+        PHP converts between datatypes transparently whe a datum is used in an expression but it is still possible to use type conversion operators for type casting.
         
-        2. Variable Variables
-    
-        3. Inspecting Variables
+        Example: $x = 10.88; echo (int) $x; /*outputs 10*/
         
-        4. Determining if a Variable is Empty
-    L. Constants
+        Note: a value cannot be converted to some special data types (cannot convert *any* value to a resource; however, you can convert a resource to a numeric or string and PHP will return the numeric ID of the resource or the string 'Resource id #' followed by the resource id.)
+    
+    K. Variables: temporary storage containers; can contain any type of data: strings, ints, floats, objects, arrays.
+        PHP is loosely typed, will implicitly change a variable type as needed.
+        PHP variables are id'd by the $ followed by a name(must start w/ letter/underscore, must contain only letters/numbers).
+        Examples:
+            $name = 'valid'; // valid name
+            $_name = 'valid'; //valid name
+            $1name = 'invalid'; //invalid name
+    
+        1. Type Casting: PHP is loosely typed but variables do have types and can be cast between types
+            The most commony way to cast is using a casting operator, which consists of the type to cast to inside of parentheses:
+            
+                $string = (string) 123; // String: "123"
+                
+            When casting between arrays and objects, array keys will become object properties, and object properties will become array keys.
+            
+            Casting to an object will result in a new stdClass object.
+            
+                listing 1.2: Casting to an Object:
+                
+                    $obj = (object) ["foo" => "bar", "baz" => "bat"];
+                    
+                    /* results in:
+                        class stdClass#186 (2) {
+                            public $foo =>
+                            string(3) "bar"
+                            public $baz =>
+                            string(3) "bat"
+                        }
+                    */
+            In addition to the casting operator there are several functions that can perform the same task:
+            intval(), floatval, strval, boolval, settype
+            
+            There are no functions for casting to objects or arrays.
+        
+            a. Detecting Types: PHP provides functions to detect variable types; they take the form of is_<type>(), return true if the variable is of the type specified:
+            is_int(), is_float, is_string, is_bool, is_null, is_array, is_object                      
+        
+        2. Variable Variables: variables whose names are contained within another variable.
+            Example:
+                $name = 'foo';
+                $$name = 'bar';
+                echo $foo; //displays 'bar'
+            
+            Variable variables make it possible to create variables whose names do not follow the normal constraints (name must be defined between braces):
+            
+                $name = '123'; /* 123 is the variable name*/
+                $$name = '345'; /* assign a value*/
+                echo ${'123'}; /* outputs '456' */
+    
+    
+        3. Inspecting Variables: print_r(), var_dump(), debug_zval_dump(), var_export():
+            print_r(): outputs values for strings, integers, floats, booleans: 1 for true; false/null nothing is output
+            
+            var_dump: displays data type and length, prints non-printable chars (Null, false), can accept any number of arguments:
+                var_dump( null, false, "", 1, 2.3, array ("foo", "bar", "baz" => 1.42));
+            When xdebug is installed, var_dump will output pretty HTML var_dump() output when the html_errors php.ini setting is enabled
+            
+            dubug_zval_dump(): outputs the internal engine representation of a variable.
+            
+            var_export: outputs a syntactically valid string representation of a variable, which if executed in PHP, would recreate the same variable.
+            Note: var_export output does not end in a semicolon
+    
+        4. Determining if a Variable Exists: use isset(); returns true if a variable exists and has a value other than null.
+        
+        5. Determining if a Variable is Empty: empty(); will return true if a variable is NULL, or any value that can be coerced to false, including: an empty string, an empty array, an integer zero and the string "0".
+            After PHP 5.5 will accept any valid expression (not just a variable).
+            
+        
+    L. Constants: constants are for defining immutable scalar values, can be accessed for any scope within a script, follow normal naming requirements (except the leading $); best practice: all uppercase.
+        Example:
+            define('EMAIL', 'name@server.com'); // Valid name
+            echo EMAIL; // displays 'name@server.com'
+            
+            const EMAIL = 'me@mail.com';    //const as of PHP 5.3
+            echo EMAIL; //outputs 'me@mail.com'
+        
+            Also, from PHP 5.6, you can use constant scalar expressions to define the value:
+            
+                const DOMAIN = "php.net";
+                const DOMAIN = "davey@" . DOMAIN;
+                
+            Constant scalar expressions support any valid expression that only uses static scalar values such as:
+            
+                Integers, Floats, and Strings
+                Magic constants such as __LINE__, __FILE__, __DIR__, and __METHOD__
+                Heredoc (w/o variables) and Nowdoc strings
+                Other constants
+                
+            Valid expressions include:
+            
+                Math
+                Bitwise Math
+                Boolean Logic
+                Concatenation
+                Ternary
+                Comparisons
     
     M. Operators
-    
+        Most commonly used operators: Assignment, Arithemtic, String, Comparison, Logical
+        Also used: Bitwise, Error Control, Execution, Incrementing/Decrementing, Type
+        
         1. Arithmetic Operators
+            Addition: $a = 1 + 3.5;
+            Subtraction: $a = 4 - 2;
+            Multiplication: $a = 8 * 3;
+            Division: $a = 15 / 5;
+            Modulus: $a = 27 % 7; // returns the remainder
+            Power: $a = 2 ** 3; // Added in PHP 5.6; returns left operand raised to power on right: 2^3
+            
+            Increment/Decrement Operators:
+            $a = 1; // assign 1 to $a
+            echo $a++; // outputs 1, $a now equals 2
+            echo ++$a; // outputs 3, $a now equals 3
+            echo --$a; // outputs 2; $a now equals 2
+            echo $a--; // outpus 2; $a now equal to 1
+            
+            Note: Increment/Decrement operators *must* be used on variables; using on hard-coded or scalar will caus an error.
+            
+            A variable being incremented will be converted to the appropriate numeric data type:
+            
+                $a = (int) 'Test'; //$a == 0
+                echo ++$a; //outputs the number 1
         
-        2. The String Concatenation Operator
+        2. The String Concatenation Operator: '.'; concatenating strings requires this operator (.):
+            $string = "foo" . "bar"; // string now contains foobar
         
-        3. Bitwise Operators
+        3. Bitwise Operators: allow you to manipulate bits of data; designed to work only on integer numbers; PHP will attempt to convert operands to integers before execution
+        
+            '~' Bitwise NOT: negates all bits of an integer number:
+                $x = 0;
+                echo ~$x; // outputs -1
+                
+            '&' Bitwise AND: returns the value of all the set bits in both the operands
+            '|' Bitwise OR: returns the value of all the bits set in either operand
+            '^' Bitwise XOR: (exclusive or) returns the value of all the bits set in either operand (but not both)
+            
+            '<<' Bitwise left shift; shifts the left-hand operands bits to the left a number of positions equal to the right operand
+            '>>' Bitwise right shift; shifts the left-hand operands bits to the right a number of positions equal to the right operand
         
         4. Assignment Operators
-        
+            
+            '=' Sets the left operand to the value of the right operand
+            '+=' Sets the left operand equal to the value of the left + right operand
+            '-=" Sets the left operand equal to the value of the left operand - the right operand
+            '*=" Sets the left oprand equal to the value of the left operand * the right oprerand
+                ...and so on for all binary & bitwise operators..
+                
         5. Referencing Variables
+            By default assignment operators work by value (they copy the value of one expression to the other)
+            by using the '&' symbol you can create an assigment by reference; the left hand operand becomes connected to the right-hand operand.
+            
+                $a = 10;
+                $b = &$a; //by reference
+                $b = 20;
+                echo $a; //outputs 20
+            The assignment operator works by value for all data types except objects, which are always passed by reference
+            Note: by reference is often slower than by value in PHP than in other languages
         
         6. Comparison Operators
+            '==' Equivalence: true if operands are equivalent (they can be converted to a common data type in which they have the same value)
+            '===' Identity: true only if operands are of the same data type with same value
+            '!=' Not Equivalent: true if the two operands are not equivalent; no regard to data type
+            '!==' Non-identical; true if the operands are not same data type and not same value
         
         7. Logical Operators
         
