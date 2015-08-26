@@ -323,19 +323,110 @@ I. Syntax
             '==' Equivalence: true if operands are equivalent (they can be converted to a common data type in which they have the same value)
             '===' Identity: true only if operands are of the same data type with same value
             '!=' Not Equivalent: true if the two operands are not equivalent; no regard to data type
-            '!==' Non-identical; true if the operands are not same data type and not same value
+            '!==' Non-identical: true if the operands are not same data type and not same value
+            '<' Less than: true if the left operand is less than the right operand
+            '<=' Less than or equal to
+            '>' Greater Than
+            '>=' Greater than or equal to
+        
+            Note: strings are compared by examining the binary value of oeach byte in sequence until two different values are found; the result of a comparison operation is then determined by the numeric value of those two bytes.
         
         7. Logical Operators
-        
+            Logical operators are used to connect boolean values and obtain a third boolean value depending on the first two.
+            
+            '&&' / 'and': true if both left and right operands are true
+            '||' / 'or': true if left or right operand are true
+            'XOR': exclusive or: true if left OR right are true (but not both)
+            
+            Note: PHP will short-circuit evaluations (if a result is found on the left side, the right will not be evaluated)
+            
         8. Other Operators
+            '@': error suppression operator; causes PHP to ignore almost all error messages that occur while an expression is being evaluated.
+                $x = @fopen("/tmp/foo"); // will prevent the call to fopen() from outputting an error
+                Note: use of @ is bad practice, makes debugging/tracing errors difficult, is slow
+                
+            '`': backtick operator; execute shell commands (functional equivalent of shell_exec())
+                $a = `ls -l`;
+                
         
         9. Operator Precidence and Associativity
         
+            Associativity       Operator
+            Let                 [
+            non-associative     ++ --
+            non-associative     ~ - (int) (float) (string) (array) (object) @
+            non-associative     instanceof
+            right               !
+            left                * / % **
+            left                + - .
+            left                << >>
+            non-associative     < <= > >=
+            non-associative     == !=   === !==
+            left                &
+            left                ^
+            left                |
+            left                &&
+            left                ||
+            left                ?
+            right               = += -= *= /= .= %= &= |= ^= < <= > >= **=
+            left                and
+            left                xor
+            left                or
+            left                ,
+            
+            Note that logical operators &, &&, 'and', |, ||, 'or' have different precidence; mixing their usage can cause confusion/problems
         
-    N. Control Structures
+    N. Control Structures: control the flow of your script
     
         1. Conditional Structures
-        
+            if-then-else:
+                if(expression1){
+                
+                } elseif (expression2){
+                    
+                } else {
+                
+                }
+                
+                Note: 'elseif' equals 'else if'
+            else-if statements may be nested:
+            
+            if (expression 1){
+                if(expression2){
+                
+                } else{
+                
+                }
+            } else{
+                if(expression3){
+                
+                }
+            }
+                
+                
+            Ternary Operator: embed an if-then-else statement inside an expression:
+                echo 10 == $x ? 'Yes' : 'No';
+                //is equivalent to:
+                if (10 == $x){ echo 'Yes';}
+                else { echo 'No';}
+                
+            Shortened Ternary Operator (as of 5.3):
+            $foo = ($bar) ?: $bat; // returns left-hand expression on true if you omit a true value and remove any whitespace between ? and :
+                Note: shortened ternay cannot be used for an if-set-or type condition b/c if the variable does not exist it will issue a notice, and if you use isset(), it will return true on existince, or false otherwise...
+            
+            
+            Switch Stamement:evaluates the initial expression once then compare against the indivual case values; if a match is found, it will continue to execute code until a break is found, even if it encounters another case.
+            $a = 0;
+            switch ($a){
+                case true: //compare to true;
+                    break;
+                case 0:
+                    break;
+                default:
+                    break;
+            }
+            
+                
         2. Iterative Constructs
         
         3. Breaking and Continuing
